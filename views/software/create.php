@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Software */
 
-$this->title = 'Create Software';
-$this->params['breadcrumbs'][] = ['label' => 'Softwares', 'url' => ['index']];
+$this->title = 'Nieuwe software toevoegen';
+$this->params['breadcrumbs'][] = ['label' => 'Software', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="software-create">
