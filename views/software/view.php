@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Software */
 
 $this->title = $model->Software_ID;
-$this->params['breadcrumbs'][] = ['label' => 'Softwares', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Software', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="software-view">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->Software_ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Weet je zeker dat je dit item wil verwijderen?',
                 'method' => 'post',
             ],
         ]) ?>
