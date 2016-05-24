@@ -61,6 +61,9 @@ class Hardware extends \yii\db\ActiveRecord
             'Omschrijving' => 'Omschrijving',
             'Status' => 'Status',
             'Jaar_van_aanschaf' => 'Jaar Van Aanschaf',
+            'leverancier.naam' => 'Leveranciernaam',
+            'fabrikant.naam' => 'Fabrikantnaam',
+            'locatie.adres' => 'Adres',
         ];
     }
 
@@ -110,5 +113,17 @@ class Hardware extends \yii\db\ActiveRecord
     public function getIncidentens()
     {
         return $this->hasMany(Incidenten::className(), ['Hardware_ID33' => 'Hardware_ID']);
+    }
+
+    public function getLeveranciernaam() {
+        return $this->leverancier->Naam;
+    }
+
+    public function getFabrikantnaam() {
+        return $this->fabrikant->Naam;
+    }
+
+    public function getAdres() {
+        return $this->locatie->Adres;
     }
 }

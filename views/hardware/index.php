@@ -24,18 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Hardware_ID',
-            'Leverancier_ID',
-            'Fabrikant_ID',
-            'Locatie_ID',
             'Besturingssysteem',
-            [
-                'label' => 'Leverancier',
-                'value' => 'leverancier.Naam'
-            ],
-            // 'Omschrijving',
+            'Leveranciernaam',
+            'Omschrijving',
+            'Fabrikantnaam',
+            'Adres',
             // 'Status',
-            // 'Jaar_van_aanschaf',
+            'Jaar_van_aanschaf',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

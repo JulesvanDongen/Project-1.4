@@ -12,6 +12,10 @@ use app\models\Hardware;
  */
 class HardwareSearch extends Hardware
 {
+    public $Leveranciernaam;
+    public $Fabrikantnaam;
+    public $Adres;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +23,7 @@ class HardwareSearch extends Hardware
     {
         return [
             [['Hardware_ID', 'Leverancier_ID', 'Fabrikant_ID', 'Locatie_ID'], 'integer'],
-            [['Besturingssysteem', 'Omschrijving', 'Status', 'Jaar_van_aanschaf'], 'safe'],
+            [['Besturingssysteem', 'Omschrijving', 'Status', 'Jaar_van_aanschaf', 'Leveranciernaam', 'Fabrikantnaam', 'Adres'], 'safe'],
         ];
     }
 
@@ -41,7 +45,7 @@ class HardwareSearch extends Hardware
      */
     public function search($params)
     {
-        $query = Hardware::find();
+        $query = Hardware::find()->joinWith(['leverancier', 'fabrikant', 'locatie']);
 
         // add conditions that should always apply here
 
@@ -49,9 +53,19 @@ class HardwareSearch extends Hardware
             'query' => $query,
         ]);
 
+        $dataProvider->setSort([
+            'attributes' => [
+               'leverancier.naam' => [
+                   'asc' => ['leverancier.Naam' => SORT_ASC],
+                   'desc' => ['leverancier.Naam' => SORT_DESC],
+                   'label' => 'Leveranciernaam',
+               ]
+            ]
+        ]);
+
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!($this->load($params) && $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -68,7 +82,10 @@ class HardwareSearch extends Hardware
         $query->andFilterWhere(['like', 'Besturingssysteem', $this->Besturingssysteem])
             ->andFilterWhere(['like', 'Omschrijving', $this->Omschrijving])
             ->andFilterWhere(['like', 'Status', $this->Status])
-            ->andFilterWhere(['like', 'Jaar_van_aanschaf', $this->Jaar_van_aanschaf]);
+            ->andFilterWhere(['like', 'Jaar_van_aanschaf', $this->Jaar_van_aanschaf])
+            ->andFilterWhere(['like', 'leverancier.Naam', $this->Leveranciernaam])
+            ->andFilterWhere(['like', 'fabrikant.Naam', $this->Fabrikantnaam])
+            ->andFilterWhere(['like', 'locatie.Adres', $this->Adres]);
 
         return $dataProvider;
     }
