@@ -29,6 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'Fabrikant_ID',
             'Locatie_ID',
             'Besturingssysteem',
+            [
+                'label' => 'Leverancier',
+                'value' => 'leverancier.Naam'
+            ],
             // 'Omschrijving',
             // 'Status',
             // 'Jaar_van_aanschaf',
