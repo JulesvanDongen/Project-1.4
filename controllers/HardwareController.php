@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Fabrikant;
+use app\models\Leverancier;
+use app\models\Locatie;
 use Yii;
 use app\models\Hardware;
 use app\models\HardwareSearch;
@@ -74,12 +77,16 @@ class HardwareController extends Controller
     public function actionCreate()
     {
         $model = new Hardware();
+        $model->Jaar_van_aanschaf = date('Y');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->Hardware_ID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'leveranciers' => Leverancier::find()->all(),
+                'fabrikanten' => Fabrikant::find()->all(),
+                'locaties' => Locatie::find()->all(),
             ]);
         }
     }
@@ -99,6 +106,9 @@ class HardwareController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'leveranciers' => Leverancier::find()->all(),
+                'fabrikanten' => Fabrikant::find()->all(),
+                'locaties' => Locatie::find()->all(),
             ]);
         }
     }

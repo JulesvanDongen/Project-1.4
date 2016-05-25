@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Fabrikant;
+use app\models\Leverancier;
 use Yii;
 use app\models\Software;
 use yii\data\ActiveDataProvider;
@@ -81,6 +83,8 @@ class SoftwareController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'fabrikanten' => Fabrikant::find()->all(),
+                'leveranciers' => Leverancier::find()->all(),
             ]);
         }
     }
@@ -100,6 +104,8 @@ class SoftwareController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'fabrikanten' => Fabrikant::find()->all(),
+                'leveranciers' => Leverancier::find()->all(),
             ]);
         }
     }

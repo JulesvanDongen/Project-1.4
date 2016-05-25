@@ -29,8 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'Hardware_ID',
-            'Leverancier_ID',
-            'Fabrikant_ID',
+            [
+                'label' => 'Leverancier',
+                'value' => Html::a($model->leverancier->Naam, \yii\helpers\Url::to(['/leverancier/view', 'id' => $model->Fabrikant_ID])),
+                'format' => 'raw',
+            ],
+            [
+                'label' => 'Fabrikant',
+                'value' => Html::a($model->fabrikant->Naam, \yii\helpers\Url::to(['/fabrikant/view', 'id' => $model->Fabrikant_ID])),
+                'format' => 'raw',
+            ],
             'Locatie_ID',
             'Besturingssysteem',
             'Omschrijving',

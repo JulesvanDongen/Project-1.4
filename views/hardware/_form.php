@@ -12,11 +12,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Leverancier_ID')->textInput() ?>
+    <?= $form->field($model, 'Leverancier_ID')->dropDownList(\yii\helpers\ArrayHelper::map($leveranciers, 'Leverancier_ID', 'Naam'))->label('Leverancier') ?>
 
-    <?= $form->field($model, 'Fabrikant_ID')->textInput() ?>
+    <?= $form->field($model, 'Fabrikant_ID')->dropDownList(\yii\helpers\ArrayHelper::map($fabrikanten, 'Fabrikant_ID', 'Naam'))->label('Fabrikant') ?>
 
-    <?= $form->field($model, 'Locatie_ID')->textInput() ?>
+    <?= $form->field($model, 'Locatie_ID')->dropDownList(\yii\helpers\ArrayHelper::map($locaties, 'Locatie_ID', 'Adres'))->label('Locatie') ?>
 
     <?= $form->field($model, 'Besturingssysteem')->textInput(['maxlength' => true]) ?>
 

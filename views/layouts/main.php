@@ -48,7 +48,6 @@ AppAsset::register($this);
                 ['label' => 'Software', 'url' => ['/software/index']],
                 ['label' => 'Hardware', 'url' => ['/hardware/index']],
                 ['label' => 'Locatie', 'url' => ['/locatie/index']],
-                ['label' => 'Login', 'url' => ['/site/login']]
             ]]
         );
         array_push(
