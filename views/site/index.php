@@ -42,7 +42,7 @@ $this->title = 'Scholengroep de Hondsrug';
 
                 <p>Wil je een incident melden? Log dan eerst in met jou studentennummer en wachtwoord. Vervolgens kan je via een vragenscript jou incident melden.</p>
 
-                <p><a class="btn btn-default" href="<?php echo Url::to(['/site/login']);?>">Meld je incident hier &raquo;</a></p>
+                <p><a class="btn btn-default" href="<?php echo Url::to(['/vragen-script/index']);?>">Meld je incident hier &raquo;</a></p>
             </div>
         </div>
 

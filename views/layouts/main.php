@@ -32,33 +32,52 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
+    $items = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+    ];
 
+    if (Yii::$app->user->isGuest) {
+        array_push($items, ['label' => 'Login', 'url' => ['/site/login']]);
+    } else if (Yii::$app->user->can('updateIncident')) {
+        array_push($items,
             ['label' => 'Items', 'items' => [
                 ['label' => 'Leveranciers', 'url' => ['/leverancier/index']],
                 ['label' => 'Fabrikanten', 'url' => ['/fabrikant/index']],
                 ['label' => 'Software', 'url' => ['/software/index']],
                 ['label' => 'Hardware', 'url' => ['/hardware/index']],
                 ['label' => 'Locatie', 'url' => ['/locatie/index']],
-            ['label' => 'Login', 'url' => ['/site/login']]
-          ]]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-                . '</li>'
+                ['label' => 'Login', 'url' => ['/site/login']]
+            ]]
+        );
+        array_push(
+            $items,
+            '<li>'
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link']
             )
-        ],
+            . Html::endForm()
+            . '</li>'
+        );
+    } else {
+        array_push(
+            $items,
+            '<li>'
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link']
+            )
+            . Html::endForm()
+            . '</li>'
+        );
+    }
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
