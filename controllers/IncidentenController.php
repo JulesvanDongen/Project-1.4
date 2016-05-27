@@ -76,6 +76,7 @@ class IncidentenController extends Controller
 
         $this->redirect(Yii::app()->request->urlReferrer);
         if ($model->In_behandeling_door !== null) {
+
         }
     }
 
@@ -122,15 +123,18 @@ class IncidentenController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $tmp = Yii::$app->request->post();
-            if (is_array($tmp)) {
+            if (is_array($tmp) && array_key_exists('neemInBehandeling', $tmp)) {
+                echo "key exists";
+                exit();
                 $tmp['Incidenten']['neemInBehandeling'] == 1 ? $model->neemInBehandeling = true : $model->neemInBehandeling = false;
             }
 
             if ($model->neemInBehandeling === true) {
                 $model->In_behandeling_door = \Yii::$app->user->id;
-                if ($model->validate() && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->Incident_ID]);
-                }
+            }
+            
+            if ($model->validate() && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->Incident_ID]);
             }
         }
 
