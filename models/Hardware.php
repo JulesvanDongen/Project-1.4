@@ -40,7 +40,9 @@ class Hardware extends \yii\db\ActiveRecord
     {
         return [
             [['Leverancier_ID', 'Fabrikant_ID', 'Locatie_ID'], 'integer'],
+            [['Leverancier_ID', 'Fabrikant_ID', 'Locatie_ID'], 'required'],
             [['Besturingssysteem', 'Omschrijving', 'Status', 'Jaar_van_aanschaf'], 'string', 'max' => 45],
+            [['Besturingssysteem', 'Omschrijving', 'Jaar_van_aanschaf'], 'required'],
             [['Fabrikant_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Fabrikant::className(), 'targetAttribute' => ['Fabrikant_ID' => 'Fabrikant_ID']],
             [['Leverancier_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Leverancier::className(), 'targetAttribute' => ['Leverancier_ID' => 'Leverancier_ID']],
             [['Locatie_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Locatie::className(), 'targetAttribute' => ['Locatie_ID' => 'Locatie_ID']],

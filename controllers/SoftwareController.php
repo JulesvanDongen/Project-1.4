@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\Fabrikant;
+use app\models\Leverancier;
 use Yii;
 use app\models\Software;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SoftwareController implements the CRUD actions for Software model.
@@ -24,6 +27,15 @@ class SoftwareController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
                 ],
             ],
         ];
@@ -71,6 +83,8 @@ class SoftwareController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'fabrikanten' => Fabrikant::find()->all(),
+                'leveranciers' => Leverancier::find()->all(),
             ]);
         }
     }
@@ -90,6 +104,8 @@ class SoftwareController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'fabrikanten' => Fabrikant::find()->all(),
+                'leveranciers' => Leverancier::find()->all(),
             ]);
         }
     }

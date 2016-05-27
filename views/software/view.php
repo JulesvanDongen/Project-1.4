@@ -31,8 +31,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'Software_ID',
             'Naam',
             'Omschrijving',
-            'Fabrikant_ID22',
-            'Leverancier_ID22',
+            [
+                'label' => 'Fabrikant',
+                'value' => Html::a($model->fabrikantID22->Naam, ['/fabrikant/view', 'id' => $model->Fabrikant_ID22]),
+                'format' => 'raw',
+            ],
+            [
+                'label' => 'Leverancier',
+                'value' => Html::a($model->leverancierID22->Naam, ['/leverancier/view', 'id' => $model->Leverancier_ID22]),
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
 

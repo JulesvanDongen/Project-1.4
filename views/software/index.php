@@ -24,8 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'Software_ID',
             'Naam',
             'Omschrijving',
-            'Fabrikant_ID22',
-            'Leverancier_ID22',
+            [
+                'label' => 'Fabrikant',
+                'value' => 'fabrikantID22.Naam',
+            ],
+            [
+                'label' => 'Leverancier',
+                'value' => 'leverancierID22.Naam',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

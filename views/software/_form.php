@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Omschrijving')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Fabrikant_ID22')->textInput() ?>
+    <?= $form->field($model, 'Fabrikant_ID22')->dropDownList(\yii\helpers\ArrayHelper::map($fabrikanten, 'Fabrikant_ID', 'Naam'))->label('Fabrikant') ?>
 
-    <?= $form->field($model, 'Leverancier_ID22')->textInput() ?>
+    <?= $form->field($model, 'Leverancier_ID22')->dropDownList(\yii\helpers\ArrayHelper::map($leveranciers, 'Leverancier_ID', 'Naam'))->label('Leverancier') ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Toevoegen' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
