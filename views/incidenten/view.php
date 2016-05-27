@@ -9,6 +9,12 @@ use yii\widgets\DetailView;
 $this->title = $model->Incident_ID;
 $this->params['breadcrumbs'][] = ['label' => 'Incidentens', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+if ($model->software !== null) {
+    $softwareURL = Html::a($model->software->Naam, \yii\helpers\Url::to(['/software/view', 'id' => $model->Software_ID]));
+} else {
+    $softwareURL = 'Niet ingevuld';
+}
 ?>
 <div class="incidenten-view">
 
@@ -29,8 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'Incident_ID',
-            'Hardware_ID',
-            'Software_ID',
+            [
+                'label' => 'Hardware',
+                'value' => Html::a($model->Hardware_ID, \yii\helpers\Url::to(['/hardware/view', 'id' => $model->Hardware_ID])),
+                'format' => 'raw',
+            ],
+            [
+                'label' => 'Software',
+                'value' => $softwareURL,
+                'format' => 'raw',
+            ],
             'Probleembeschrijving:ntext',
             'Datum',
             'Tijd',

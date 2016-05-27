@@ -13,6 +13,7 @@ use app\models\Incidenten;
 class IncidentenSearch extends Incidenten
 {
     public $searchUnassigned = false;
+    public $searchUnsolved = false;
 
     /**
      * @inheritdoc
@@ -66,7 +67,7 @@ class IncidentenSearch extends Incidenten
             'Software_ID' => $this->Software_ID,
             'Datum' => $this->Datum,
             'Tijd' => $this->Tijd,
-            'Niet_oplosbaar' => $this->Niet_oplosbaar,
+//            'Niet_oplosbaar' => $this->Niet_oplosbaar,
             'Afgehandeld' => $this->Afgehandeld,
             'Prioriteit' => $this->Prioriteit,
 //            'In_behandeling_door' => $this->In_behandeling_door,
@@ -77,6 +78,14 @@ class IncidentenSearch extends Incidenten
             $query->andWhere(['In_behandeling_door' => null]);
         } else {
             $query->andFilterWhere(['In_behandeling_door' => $this->In_behandeling_door]);
+        }
+
+        if ($this->searchUnsolved === true) {
+            $query->andWhere(['Niet_oplosbaar' => 1]);
+        } else {
+            $query->andFilterWhere(['Niet_oplosbaar' => $this->Niet_oplosbaar]);
+//            $query->andFilterWhere(['Niet_oplosbaar' => null]);
+//            $query->orFilterWhere(['Niet_oplosbaar' => 0]);
         }
 
         $query->andFilterWhere(['like', 'Probleembeschrijving', $this->Probleembeschrijving])

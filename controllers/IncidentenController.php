@@ -8,6 +8,7 @@ use app\models\IncidentenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * IncidentenController implements the CRUD actions for Incidenten model.
@@ -24,6 +25,15 @@ class IncidentenController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
                 ],
             ],
         ];
@@ -80,6 +90,19 @@ class IncidentenController extends Controller
         }
     }
 
+    public function actionNietOplosbaar()
+    {
+        $searchModel = new IncidentenSearch();
+        $searchModel->Niet_oplosbaar = true;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title' => 'Niet oplosbare incidenten',
+        ]);
+    }
+
     /**
      * Displays a single Incidenten model.
      * @param integer $id
@@ -123,16 +146,16 @@ class IncidentenController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $tmp = Yii::$app->request->post();
-            if (is_array($tmp) && array_key_exists('neemInBehandeling', $tmp)) {
-                echo "key exists";
-                exit();
-                $tmp['Incidenten']['neemInBehandeling'] == 1 ? $model->neemInBehandeling = true : $model->neemInBehandeling = false;
+            if (is_array($tmp)) {
+                if (array_key_exists('neemInBehandeling', $tmp['Incidenten'])) {
+                    $tmp['Incidenten']['neemInBehandeling'] == 1 ? $model->neemInBehandeling = true : $model->neemInBehandeling = false;
+                }
             }
 
             if ($model->neemInBehandeling === true) {
                 $model->In_behandeling_door = \Yii::$app->user->id;
             }
-            
+
             if ($model->validate() && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->Incident_ID]);
             }

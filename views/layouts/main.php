@@ -54,7 +54,8 @@ AppAsset::register($this);
 
         array_push($items, ['label' => 'Incidenten', 'items' => [
             ['label' => 'Binnenkomend', 'url' => ['/incidenten/binnenkomend']],
-            ['label' => 'In behandeling', 'url' => ['/incidenten/in-behandeling']]
+            ['label' => 'In behandeling', 'url' => ['/incidenten/in-behandeling']],
+            ['label' => 'Niet oplosbaar', 'url' => ['/incidenten/niet-oplosbaar']],
         ]]);
 
         array_push(
