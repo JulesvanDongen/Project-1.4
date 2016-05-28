@@ -47,4 +47,24 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <h2>Software</h2>
+
+    <p>
+        <?= Html::a('Software toevoegen', ['/hard-software-koppeling/create', 'Hardware_ID' => $model->Hardware_ID], ['class' => 'btn btn-primary']) ?>
+    </p>
+
+    <?=
+        \yii\grid\GridView::widget([
+            'dataProvider' => $software,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'software.Naam',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'controller' => 'hard-software-koppeling'
+                ],
+            ],
+        ]);
+    ?>
+
 </div>

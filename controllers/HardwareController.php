@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use app\models\Fabrikant;
+use app\models\HardSoftwareKoppeling;
 use app\models\Leverancier;
 use app\models\Locatie;
 use Yii;
 use app\models\Hardware;
 use app\models\HardwareSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,6 +68,11 @@ class HardwareController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'software' => new ActiveDataProvider([
+               'query' => HardSoftwareKoppeling::find()
+                   ->where(['Hardware_ID' => $id])
+                   ->joinWith('software')
+            ]),
         ]);
     }
 
