@@ -1,9 +1,8 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<h1>vragen-script/afronding</h1>
+<h1>Bedankt voor het invullen van de vragen!</h1>
 
 <p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
+    Er wordt zo spoedig mogelijk naar het probleem gekeken.
 </p>

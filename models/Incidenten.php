@@ -27,6 +27,7 @@ use Yii;
 class Incidenten extends \yii\db\ActiveRecord
 {
     public $neemInBehandeling = false;
+    public $Type;
 
     public static $prioriteiten = [
         'Spoed',
@@ -55,7 +56,7 @@ class Incidenten extends \yii\db\ActiveRecord
         return [
             [['Hardware_ID', 'Software_ID', 'Niet_oplosbaar', 'Afgehandeld', 'In_behandeling_door', 'Ingevuld_door'], 'integer'],
             [['Probleembeschrijving'], 'string'],
-            [['Datum', 'Tijd', 'neemInBehandeling'], 'safe'],
+            [['Datum', 'Tijd', 'neemInBehandeling', 'Type'], 'safe'],
             [['Ingevuld_tijdens_vragenscript'], 'string', 'max' => 255],
             [['Hardware_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Hardware::className(), 'targetAttribute' => ['Hardware_ID' => 'Hardware_ID']],
             [['Software_ID'], 'exist', 'skipOnError' => true, 'targetClass' => Software::className(), 'targetAttribute' => ['Software_ID' => 'Software_ID']],
@@ -76,6 +77,7 @@ class Incidenten extends \yii\db\ActiveRecord
             'Probleembeschrijving' => 'Probleembeschrijving',
             'Datum' => 'Datum',
             'Tijd' => 'Tijd',
+            'Type' => 'Type',
             'Ingevuld_tijdens_vragenscript' => 'Ingevuld Tijdens Vragenscript',
             'Niet_oplosbaar' => 'Niet Oplosbaar',
             'Afgehandeld' => 'Afgehandeld',
