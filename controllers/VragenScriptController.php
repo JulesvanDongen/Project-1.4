@@ -163,6 +163,33 @@ class VragenScriptController extends \yii\web\Controller
         }
     }
 
+    public function actionComputer4() {
+        $session = Yii::$app->session;
+
+        if (!$session->has('vragenscript')) {
+            return $this->redirect('index');
+        } else {
+            $model = $this->getVragenscript();
+
+            if ($model->load(Yii::$app->request->post())) {
+                $session['vragenscript'] = $model->attributes;
+
+                if ($model->c4 == 'ja') {
+                    return $this->redirect(['finalize', 'withSoftware' => true]);
+                } else {
+                    $model->type = 'Netwerk';
+                    $session['vragenscript'] = $model->attributes;
+                    return $this->redirect(['finalize', 'withSoftware' => false]);
+                }
+
+            } else {
+                return $this->render('computer4', [
+                    'model' => $model,
+                ]);
+            }
+        }
+    }
+
     public function actionOverig1() {
         $session = Yii::$app->session;
 
