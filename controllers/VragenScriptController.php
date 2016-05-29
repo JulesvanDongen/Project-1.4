@@ -231,11 +231,11 @@ class VragenScriptController extends \yii\web\Controller
                 $session['vragenscript'] = $model->attributes;
 
                 if ($model->o2 == 'ja') {
-                    $model->Type = 'software';
+                    $model->type = 'software';
                     $session['vragenscript'] = $model->attributes;
                     return $this->redirect(['finalize', 'withSoftware' => true]);
                 } else if ($model->o2 == 'nee') {
-                    $model->Type = 'hardware';
+                    $model->type = 'hardware';
                     $session['vragenscript'] = $model->attributes;
                     return $this->redirect(['finalize', 'withSoftware' => false]);
                 } else {
