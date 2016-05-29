@@ -36,6 +36,12 @@ class VragenScriptController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $session->open();
+            $model->c1 = null;
+            $model->c2 = null;
+            $model->c3 = null;
+            $model->c4 = null;
+            $model->o1 = null;
+            $model->p1 = null;
             $session['vragenscript'] = $model->attributes;
 
             if ($model->h1 == 'computer') {
@@ -43,7 +49,7 @@ class VragenScriptController extends \yii\web\Controller
             } else if ($model->h1 == 'printer_of_scanner') {
                 return $this->redirect(['printer-scanner']);
             } else if ($model->h1 == 'overig') {
-                return $this->redirect(['overig']);
+                return $this->redirect(['overig1']);
             } else {
                 return $this->redirect(['index']);
             }
@@ -90,7 +96,9 @@ class VragenScriptController extends \yii\web\Controller
                 } else {
                     $model->type = 'Hardware';
                     $session['vragenscript'] = $model->attributes;
-                    return $this->redirect(['finalize', 'withSoftware' => false]);
+                    return $this->redirect(['finalize',
+                        'withSoftware' => false
+                    ]);
                 }
 
             } else {
@@ -149,6 +157,66 @@ class VragenScriptController extends \yii\web\Controller
 
             } else {
                 return $this->render('computer3', [
+                    'model' => $model,
+                ]);
+            }
+        }
+    }
+
+    public function actionOverig1() {
+        $session = Yii::$app->session;
+
+        if (!$session->has('vragenscript')) {
+            return $this->redirect('index');
+        } else {
+            $model = $this->getVragenscript();
+
+            if ($model->load(Yii::$app->request->post())) {
+                $session['vragenscript'] = $model->attributes;
+                return $this->redirect(['overig2']);
+
+
+            } else {
+                if (Yii::$app->user->can('updateIncident')) {
+                    $options = Vragenscript::$o1adminanswers;
+                } else {
+                    $options = Vragenscript::$o1otheranswers;
+                    $this->redirect(['overig2']);
+                }
+
+                return $this->render('overig1', [
+                    'model' => $model,
+                    'options' => $options,
+                ]);
+            }
+        }
+    }
+
+    public function actionOverig2() {
+        $session = Yii::$app->session;
+
+        if (!$session->has('vragenscript')) {
+            return $this->redirect('index');
+        } else {
+            $model = $this->getVragenscript();
+
+            if ($model->load(Yii::$app->request->post())) {
+                $session['vragenscript'] = $model->attributes;
+
+                if ($model->o2 == 'ja') {
+                    $model->Type = 'software';
+                    $session['vragenscript'] = $model->attributes;
+                    return $this->redirect(['finalize', 'withSoftware' => true]);
+                } else if ($model->o2 == 'nee') {
+                    $model->Type = 'hardware';
+                    $session['vragenscript'] = $model->attributes;
+                    return $this->redirect(['finalize', 'withSoftware' => false]);
+                } else {
+                    return $this->redirect('index');
+                }
+
+            } else {
+                return $this->render('overig2', [
                     'model' => $model,
                 ]);
             }

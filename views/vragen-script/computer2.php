@@ -8,7 +8,6 @@ use app\models\Vragenscript;
 <div class="vragenscript-form">
     <?php
     $form = ActiveForm::begin();
-    var_dump($model->attributes);
     ?>
 
     <?= $form->field($model, 'c2')->radioList(Vragenscript::$yesnoanswers, ['separator' => '<br>']); ?>

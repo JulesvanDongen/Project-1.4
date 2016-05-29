@@ -10,7 +10,7 @@ use app\models\Vragenscript;
     $form = ActiveForm::begin();
     ?>
 
-    <?= $form->field($model, 'c3')->radioList(Vragenscript::$yesnoanswers, ['separator' => '<br>']); ?>
+    <?= $form->field($model, 'o2')->radioList(Vragenscript::$yesnoanswers, ['separator' => '<br>']); ?>
 
     <div class="form-group">
         <?= \yii\helpers\Html::submitButton('Volgende', ['class' => 'btn btn-primary']) ?>

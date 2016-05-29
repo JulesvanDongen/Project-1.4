@@ -10,7 +10,6 @@ use app\models\Vragenscript;
 <div class="vragenscript-form">
     <?php
         $form = ActiveForm::begin();
-        var_dump($model->attributes);
     ?>
 
     <?= $form->field($model, 'hardware_id')->textInput(); ?>

@@ -32,6 +32,21 @@ class Vragenscript extends Model
     public $c3;
     public $c4;
 
+    // Overige vragen
+    public $o1;
+    public static $o1adminanswers = [
+        'server' => 'Server',
+        'switch' => 'Switch',
+        'router' => 'Router',
+        'firewall' => 'Firewall',
+        'modem' => 'Modem',
+        'overig' => 'Overig',
+    ];
+    public static $o1otheranswers = [
+        'overig' => 'Overig',
+    ];
+    public $o2;
+
     // Algemene vragen
     public $beschrijving;
     public $software_id;
@@ -49,7 +64,7 @@ class Vragenscript extends Model
     public function rules()
     {
         return [
-            [['h1', 'p1', 'c1', 'c2', 'c3', 'c4', 'beschrijving', 'hardware_id', 'software_id'], 'required'],
+            [['h1', 'p1', 'c1', 'c2', 'c3', 'c4', 'o1', 'o2', 'beschrijving', 'hardware_id', 'software_id'], 'required'],
         ];
     }
 
@@ -65,6 +80,8 @@ class Vragenscript extends Model
             'c2' => 'Kan je jezelf aanmelden op de computer?',
             'c3' => 'Is de website www.dehondsrug.nl te bereiken?',
             'c4' => 'Heb je problemen met de software?',
+            'o1' => 'Waar heb je een probleem mee?',
+            'o2' => 'Heb je een probleem met de software?',
             'hardware_id' => 'Hardware ID',
             'software_id' => 'Software',
             'beschrijving' => 'Een beschrijving van je probleem',
@@ -95,6 +112,8 @@ class Vragenscript extends Model
             'c3' => $this->c3,
             'c4' => $this->c4,
             // Overige vragen
+            'o1' => $this->o1,
+            'o2' => $this->o2,
         ]);
 
         return $incident;

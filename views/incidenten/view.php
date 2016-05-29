@@ -48,7 +48,6 @@ if ($model->software !== null) {
             'Probleembeschrijving:ntext',
             'Datum',
             'Tijd',
-            'Ingevuld_tijdens_vragenscript',
             'Niet_oplosbaar:BOOLEAN',
             'Afgehandeld:boolean',
             'Prioriteit',
@@ -56,5 +55,20 @@ if ($model->software !== null) {
             'Ingevuld_door',
         ],
     ]) ?>
+
+    <?php
+        if ($model->Ingevuld_tijdens_vragenscript != '') {
+            echo '<h2>Ingevulde vragen</h2>';
+            $ingevuld = json_decode($model->Ingevuld_tijdens_vragenscript);
+            $vragenscriptModel = new \app\models\Vragenscript();
+
+            foreach ($ingevuld as $key => $value) {
+                if ($value != null) {
+                    echo '<label>' . $vragenscriptModel->getAttributeLabel($key) . '</label><br>';
+                    echo '<p>' . $value . '</p>';
+                }
+            }
+        }
+    ?>
 
 </div>
